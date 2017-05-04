@@ -12,18 +12,18 @@ import java.util.UUID
  * @see DomainEventMessage
  * @since 1.0
  */
-interface EventMessage<E : Event> : Message<E>{
-    
+interface EventMessage<E : Event> : Message<E> {
+
     /**
      * Returns the timestamp of this event. The timestamp is set to the date and time the event was reported.
      *
      * @return the timestamp of this event.
      */
-    fun getTimestamp() : Instant 
+    fun getTimestamp(): Instant
 
     /**
      * Returns a copy of this Message with the given <code>metaData</code>. The payload remains unchanged.
-     * 
+     *
      * While the implementation returned may be different than the implementation of <code>this</code>, implementations
      * must take special care in returning the same type of Message (e.g. EventMessage, DomainEventMessage) to prevent
      * errors further downstream.
@@ -31,9 +31,9 @@ interface EventMessage<E : Event> : Message<E>{
      * @param metadata The new MetaData for the Message
      * @return a copy of this message with the given MetaData
      */
-	
-    override fun withMetaData(metadata : Map<String,Any>) : EventMessage<E>
-    
+
+    override fun withMetaData(metadata: Map<String, Any>): EventMessage<E>
+
     /**
      * Returns a copy of this Message with it MetaData merged with the given <code>metaData</code>. The payload
      * remains unchanged.
@@ -41,6 +41,6 @@ interface EventMessage<E : Event> : Message<E>{
      * @param metadata The MetaData to merge with
      * @return a copy of this message with the given MetaData
      */
-    override fun andMetaData(metadata : Map<String,Any> ) : EventMessage<E> 
+    override fun andMetaData(metadata: Map<String, Any>): EventMessage<E>
 
 }

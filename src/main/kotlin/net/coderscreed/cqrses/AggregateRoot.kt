@@ -6,39 +6,39 @@ import java.io.ObjectInputStream
 
 abstract class AggregateRoot : Entity {
 
-	@Transient
-	private var unsaved = mutableListOf<Event>()
+    @Transient
+    private var unsaved = mutableListOf<Event>()
 
-	protected constructor()
-		
-	constructor(events: Iterator<Event>) {
-		events.forEach { event -> on(event) }
-	}
+    protected constructor()
 
-	private fun <E : Event> on(event: E ) {
+    constructor(events: Iterator<Event>) {
+        events.forEach { event -> on(event) }
+    }
+
+    private fun <E : Event> on(event: E) {
         val method = try {
-			javaClass.getDeclaredMethod("handle", event.javaClass)
-        } catch (e : NoSuchMethodException) {
+            javaClass.getDeclaredMethod("handle", event.javaClass)
+        } catch (e: NoSuchMethodException) {
             null
         }
-		
+
         if (method !== null) {
             method.setAccessible(true)
             try {
-				method.invoke(this, arrayOf<Event>(event))
+                method.invoke(this, arrayOf<Event>(event))
             } catch (e: Exception) {
                 throw RuntimeException("Unable to call event handler method for ${event.javaClass.name}", e)
             }
         }
     }
 
-	protected fun apply(event: Event) {
-		on(event)
-		unsaved.add(event)
-	}
-	
-	fun getUnsaved() = unsaved.iterator()
-	fun clearUnsaved() = unsaved.clear()
+    protected fun apply(event: Event) {
+        on(event)
+        unsaved.add(event)
+    }
+
+    fun getUnsaved() = unsaved.iterator()
+    fun clearUnsaved() = unsaved.clear()
 
     private fun readObject(inputStream: ObjectInputStream) {
         inputStream.defaultReadObject()
