@@ -1,0 +1,27 @@
+buildscript {
+  ext.kotlinVersion = '1.1.1'
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+  }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'kotlin'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.7'
+  compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+  testCompile 'junit:junit:4.12'
+  testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}"
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.5'
+}
