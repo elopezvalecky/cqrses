@@ -2,9 +2,9 @@ package net.coderscreed.cqrses
 
 import java.util.UUID
 
-open class GenericMessage<T : Any>(val id: UUID, val payload: T, val metadata: Map<String, Any>) : Message<T> {
+open class GenericMessage<T : Any>(override val id: UUID, override val payload: T, override val metadata: Map<String, Any>) : Message<T> {
 
-    constructor(message: Message<T>, metadata: Map<String, Any>) : this(message.getId(), message.getPayload(), metadata)
+    constructor(message: Message<T>, metadata: Map<String, Any>) : this(message.id, message.payload, metadata)
 
     constructor(payload: T, metadata: Map<String, Any>) : this(UUID.randomUUID(), payload, metadata)
 
@@ -20,9 +20,6 @@ open class GenericMessage<T : Any>(val id: UUID, val payload: T, val metadata: M
         return GenericMessage(this, this.metadata.plus(metadata))
     }
 
-    override fun getId(): UUID = this.id
-    override fun getPayload(): T = this.payload
     override fun getPayloadType(): Class<T> = this.payload.javaClass
-    override fun getMetadata(): Map<String, Any> = this.metadata
 
 }

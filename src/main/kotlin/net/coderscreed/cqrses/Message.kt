@@ -24,7 +24,7 @@ interface Message<T> : Serializable {
      *
      * @return the unique identifier of this message
      */
-    fun getId(): UUID
+    val id: UUID
 
     /**
      * Returns the meta data for this event. This meta data is a collection of key-value pairs, where the key is a
@@ -32,14 +32,14 @@ interface Message<T> : Serializable {
      *
      * @return the meta data for this event
      */
-    fun getMetadata(): Map<String, Any>
+    val metadata: Map<String, Any>
 
     /**
      * Returns the payload of this Event. The payload is the application-specific information.
      *
      * @return the payload of this Event
      */
-    fun getPayload(): T
+    val payload: T
 
     /**
      * Returns the type of the payload.
@@ -50,7 +50,7 @@ interface Message<T> : Serializable {
      * @return the type of payload.
      */
     fun getPayloadType(): Class<T>
-
+    
     /**
      * Returns a copy of this Message with the given <code>metaData</code>. The payload remains unchanged.
      *

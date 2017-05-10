@@ -14,7 +14,7 @@ interface CommandMessage<C> : Message<C> {
      *
      * @return the name of the command
      */
-    fun getCommandName(): String
+    val commandName: String
 
     /**
      * Returns a copy of this Message with the given <code>metaData</code>. The payload remains unchanged.

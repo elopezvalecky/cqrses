@@ -20,9 +20,9 @@ interface DomainEventMessage<E : Event, A : AggregateRoot> : EventMessage<E> {
      *
      * @return the identifier of the Aggregate that generated this DomainEvent
      */
-    fun getAggregateId(): UUID
+    val aggregateId: UUID
 
-    fun getAggregateType(): Class<A>
+    val aggregateType: Class<A>
 
     /**
      * Returns a copy of this Message with the given <code>metaData</code>. The payload remains unchanged.

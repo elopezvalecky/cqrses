@@ -3,9 +3,9 @@ package net.coderscreed.cqrses
 import java.time.Instant
 import java.util.UUID
 
-open class GenericDomainEventMessage<E : Event, A : AggregateRoot>(id: UUID, payload: E, timestamp: Instant, val aggregateId: UUID, val aggregateType: Class<A>, metadata: Map<String, Any>) : GenericEventMessage<E>(id, payload, timestamp, metadata), DomainEventMessage<E, A> {
+open class GenericDomainEventMessage<E : Event, A : AggregateRoot>(id: UUID, payload: E, timestamp: Instant, override val aggregateId: UUID, override val aggregateType: Class<A>, metadata: Map<String, Any>) : GenericEventMessage<E>(id, payload, timestamp, metadata), DomainEventMessage<E, A> {
 
-    constructor(message: DomainEventMessage<E, A>, metadata: Map<String, Any>) : this(message.getId(), message.getPayload(), message.getTimestamp(), message.getAggregateId(), message.getAggregateType(), metadata)
+    constructor(message: DomainEventMessage<E, A>, metadata: Map<String, Any>) : this(message.id, message.payload, message.timestamp, message.aggregateId, message.aggregateType, metadata)
 
     constructor(payload: E, timestamp: Instant, aggregateId: UUID, aggregateType: Class<A>, metadata: Map<String, Any>) : this(UUID.randomUUID(), payload, timestamp, aggregateId, aggregateType, metadata)
 
@@ -22,8 +22,5 @@ open class GenericDomainEventMessage<E : Event, A : AggregateRoot>(id: UUID, pay
         if (this.metadata == metadata) return this
         return GenericDomainEventMessage(this, this.metadata.plus(metadata))
     }
-
-    override fun getAggregateId(): UUID = this.aggregateId
-    override fun getAggregateType(): Class<A> = this.aggregateType
 
 }
