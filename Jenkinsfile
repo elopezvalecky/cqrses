@@ -7,5 +7,11 @@ pipeline {
         sh './gradlew build'
       }
     }
+    stage('test') {
+      steps {
+        echo 'Test'
+        sh 'sh \'./gradlew check\''
+      }
+    }
   }
 }
