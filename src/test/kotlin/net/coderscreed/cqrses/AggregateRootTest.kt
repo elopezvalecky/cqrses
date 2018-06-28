@@ -1,7 +1,7 @@
 package net.coderscreed.cqrses
 
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import java.util.UUID
 
 class AggregateRootTest {
@@ -10,8 +10,8 @@ class AggregateRootTest {
     fun test() {
         val id = UUID.randomUUID()
         val demo = Demo(id, "Tester")
-        Assert.assertEquals(id, demo.id)
-        Assert.assertEquals("Tester", demo.text)
+        Assertions.assertEquals(id, demo.id)
+        Assertions.assertEquals("Tester", demo.text)
     }
 
     class Demo : AggregateRoot {

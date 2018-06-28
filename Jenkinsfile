@@ -4,20 +4,15 @@ pipeline {
     stage('build') {
       steps {
         echo 'Build'
-        sh './gradlew build'
+        sh './gradlew clean build -x test'
       }
     }
     stage('test') {
       steps {
         echo 'Test'
-        sh './gradlew check'
+        sh './gradlew test'
+        junit '**/build/test-reports/*.xml'
       }
     }
   }
-  post {
-    always {
-      archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-      junit 'build/reports/**/*.xml'
-    }
-  }  
 }

@@ -1,5 +1,5 @@
 buildscript {
-  ext.kotlinVersion = '1.1.1'
+  ext.kotlinVersion = '1.2.50'
   repositories {
     mavenCentral()
   }
@@ -8,27 +8,34 @@ buildscript {
   }
 }
 
+ext.junitVersion = '5.2.0'
+
 apply plugin: 'eclipse'
 apply plugin: 'kotlin'
 
 repositories {
+  mavenLocal()
   mavenCentral()
 }
 
 dependencies {
-  compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.7'
-  compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-  testCompile 'junit:junit:4.12'
+  implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6'
+  implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+  testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+  testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
   testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}"
 }
 
 test {
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
   reports {
-    junitXml.enabled = true
     html.enabled = true
   }
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '3.5'
+wrapper{
+  gradleVersion = '4.8.1'
 }
