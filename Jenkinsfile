@@ -1,17 +1,22 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
+    stage('Build') {
       steps {
         echo 'Build'
         sh './gradlew clean build -x test'
       }
     }
-    stage('test') {
+    stage('Test') {
       steps {
         echo 'Test'
         sh './gradlew test'
         junit 'build/test-results/**/*.xml'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        waitUntil()
       }
     }
   }
