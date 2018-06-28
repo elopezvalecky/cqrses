@@ -15,11 +15,25 @@ pipeline {
       }
     }
     stage('Deploy') {
-      when {
-          branch 'master'
-      }
-      steps {
-        echo 'Deploy'
+      stages {
+        stage('in Production') {
+          when {
+            branch 'master'
+          }
+          steps {
+            echo 'Deploy in Production'
+          }        
+        }
+        stage('in Stagging') {
+          when {
+            not {
+              branch 'master'
+            }
+          }
+          steps {
+            echo 'Deploy in Stagging'
+          }        
+        }
       }
     }
   }
