@@ -15,8 +15,11 @@ pipeline {
       }
     }
     stage('Deploy') {
+      when {
+          branch 'master'
+      }
       steps {
-        waitUntil()
+        echo 'Deploy'
       }
     }
   }
